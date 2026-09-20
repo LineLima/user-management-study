@@ -1,0 +1,41 @@
+<div class="login-container">
+  <div class="login-card">
+
+    <h1>Login</h1>
+
+    <form (ngSubmit)="login()">
+
+      <label for="email">E-mail</label>
+
+      <input
+        id="email"
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+      />
+
+      <label for="password">Senha</label>
+
+      <input
+        id="password"
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+      />
+
+      <button type="submit">
+        Acessar
+      </button>
+
+    </form>
+
+    @if (errorMessage) {
+    <p class="error">
+        {{ errorMessage }}
+    </p>
+    }
+
+  </div>
+</div>

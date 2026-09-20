@@ -1,0 +1,132 @@
+<div class="container">
+
+  <div class="header">
+    <h1>Gerenciamento de Usuários</h1>
+
+    <button type="button" (click)="logout()">
+      Sair
+    </button>
+  </div>
+
+  @if (message) {
+    <p class="success">{{ message }}</p>
+  }
+
+  @if (errorMessage) {
+    <p class="error">{{ errorMessage }}</p>
+  }
+
+  <div class="form-card">
+
+    <h2>
+      {{ editingId === null ? 'Cadastrar usuário' : 'Editar usuário' }}
+    </h2>
+
+    <form (ngSubmit)="saveUser()">
+
+      <label>Nome</label>
+
+      <input
+        type="text"
+        [(ngModel)]="name"
+        name="name"
+        required
+      />
+
+      <label>E-mail</label>
+
+      <input
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+      />
+
+      <label>Senha</label>
+
+      <input
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        [required]="editingId === null"
+      />
+
+      <label>Perfil</label>
+
+      <select
+        [(ngModel)]="role"
+        name="role"
+      >
+        <option value="Administrator">Administrator</option>
+        <option value="Operator">Operator</option>
+        <option value="Client">Client</option>
+      </select>
+
+      <div class="form-buttons">
+
+        <button type="submit">
+          {{ editingId === null ? 'Cadastrar' : 'Atualizar' }}
+        </button>
+
+        @if (editingId !== null) {
+          <button
+            type="button"
+            (click)="clearForm()">
+            Cancelar
+          </button>
+        }
+
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="table-card">
+
+    <h2>Usuários cadastrados</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Perfil</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        @for (user of users; track user.id) {
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+
+            <td>
+              <button
+                type="button"
+                (click)="editUser(user)">
+                Editar
+              </button>
+
+              <button
+                type="button"
+                (click)="deleteUser(user.id)">
+                Excluir
+              </button>
+            </td>
+          </tr>
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
